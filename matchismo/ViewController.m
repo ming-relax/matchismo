@@ -17,7 +17,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gameModelControl;
+
+@property (weak, nonatomic) IBOutlet UILabel *lastResult;
+
+
 @end
+
 
 @implementation ViewController
 
@@ -47,6 +52,23 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
+    }
+    if (self.game.lastResult.score) {
+        self.lastResult.text = @"matched";
+        NSString *sentence = @"";
+        for (Card *card in self.game.lastResult.cards) {
+            [sentence stringByAppendingString:card.contents];
+        }
+        self.lastResult.text = [NSString stringWithFormat:@"%@ matched", sentence];
+    } else if (self.game.lastResult.cards.count > 1) {
+        NSString *sentence = @"";
+        for (Card *card in self.game.lastResult.cards) {
+            [sentence stringByAppendingString:card.contents];
+        }
+        self.lastResult.text = [NSString stringWithFormat:@"%@ mismatch", sentence];
+        
+    } else {
+        self.lastResult.text = [NSString stringWithFormat:@"Clicked %@", self.game.lastResult.currentCard.contents];
     }
 }
 
