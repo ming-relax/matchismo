@@ -10,6 +10,36 @@
 
 @implementation PlayingCard
 
+- (int)match:(NSArray *)otherCards {
+    int score = 0;
+    if ([otherCards count] == 1) {
+        PlayingCard *otherCard = [otherCards firstObject];
+        if (otherCard.rank == self.rank) {
+            score = 4;
+        } else if ([otherCard.suit isEqualToString:self.suit]) {
+            score = 1;
+        }
+    } else if ([otherCards count] == 2) {
+        PlayingCard *secondCard = [otherCards firstObject];
+        PlayingCard *thirdCard = [otherCards lastObject];
+        
+        if (self.rank == secondCard.rank && self.rank == thirdCard.rank) {
+            score = 20;
+        } else if ([self.suit isEqualToString:secondCard.suit] && [self.suit isEqualToString:thirdCard.suit]) {
+            score = 15;
+        } else if (self.rank == secondCard.rank ||
+                   self.rank == thirdCard.rank ||
+                   secondCard.rank == thirdCard.rank) {
+            score = 10;
+        } else if ([self.suit isEqualToString:secondCard.suit] ||
+                   [self.suit isEqualToString:thirdCard.suit] ||
+                   [secondCard.suit isEqualToString:thirdCard.suit]) {
+            score = 5;
+        }
+    }
+    return score;
+}
+
 - (NSString *)contents {
     return [[PlayingCard rankStrings][self.rank] stringByAppendingString:self.suit];
 
