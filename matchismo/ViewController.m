@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "PlayingCardDeck.h"
 #import "Deck.h"
 #import "CardMatchingGame.h"
 
@@ -33,7 +32,7 @@
 }
 
 - (Deck *)createDeck {
-    return [[PlayingCardDeck alloc] init];
+    return nil;
 }
 
 
@@ -53,6 +52,7 @@
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", (int)self.game.score];
     }
+    
     if (self.game.lastResult.score) {
         self.lastResult.text = @"matched";
         NSString *sentence = @"";

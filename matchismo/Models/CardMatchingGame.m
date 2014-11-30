@@ -74,12 +74,12 @@ static const int COST_TO_CHOOSE = 1;
     }
     self.lastResult.score = matchScore;
     self.lastResult.cards = [otherCards arrayByAddingObject:card];
-    self.lastResult.currentCard = card;
 }
 
 - (void)chooseCardAtIndex:(NSUInteger)index {
     Card *card = [self cardAtIndex:index];
-    
+    self.lastResult.currentCard = card;
+    NSLog(@"index = %d, mode = %d, card = %@", (int)index, (int)self.matchMode, card);
     if (!card.isMatched) {
         if (card.isChosen) {
             card.chosen = NO;
